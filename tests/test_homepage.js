@@ -21,8 +21,8 @@ const os = require('os');
     .build();
 
   try {
-    await driver.get("http://nodeproject-app:3000");
-    console.log('Homepage test passed');
+    await driver.get("https://www.selenium.dev/selenium/web/web-form.html");
+    console.log('Web form page opened successfully');
   } finally {
     await driver.quit();
   }
