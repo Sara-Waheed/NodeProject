@@ -7,8 +7,7 @@
     "dev": "nodemon app.js",
     "lint": "eslint . --ext .js",
     "build": "echo \"No build step defined\"",
-    "test": "mkdir -p reports && mocha --reporter mocha-junit-reporter --reporter-options mochaFile=reports/test-results.xml"
-
+    "test": "mkdir -p reports && mocha tests/ --recursive --reporter mocha-junit-reporter --reporter-options mochaFile=reports/test-results.xml"
   },
   "keywords": [],
   "author": "",
