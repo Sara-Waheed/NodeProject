@@ -9,7 +9,6 @@ pipeline {
     stage('Build')      { steps { sh 'npm run build' } }
     stage('Unit Test') {
     steps {
-    sh 'npm install'
     sh 'npm test || echo "Tests failed - continuing pipeline"'
     // Validate XML report exists
     sh 'test -f reports/test-results.xml || exit 1' 
