@@ -1,12 +1,22 @@
 # Dockerfile.tests
 FROM node:14
+
+# Install Chrome and dependencies
 RUN apt-get update && \
-    apt-get install -y wget unzip xvfb libfontconfig \
-    && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-    && dpkg -i google-chrome*.deb; apt-get -f install -y \
-    && rm google-chrome*.deb
-RUN npm install -g selenium-webdriver chromedriver
+    apt-get install -y wget unzip xvfb libfontconfig && \
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    dpkg -i google-chrome*.deb || apt-get -f install -y && \
+    rm google-chrome*.deb
+
+# Set working directory
 WORKDIR /tests
+
+# Copy test files into the container
 COPY tests/selenium /tests
-ENTRYPOINT ["xvfb-run", "node"]
-CMD ["test_homepage.js", "&&", "node", "test_add_item.js"]
+
+# Install project dependencies
+RUN npm install
+
+# Default command to run your Selenium tests using xvfb
+ENTRYPOINT ["xvfb-run", "sh", "-c"]
+CMD ["node test_form_submit.js && node test_other_test.js"]
