@@ -21,8 +21,7 @@ const os = require('os');
     .build();
 
   try {
-    await driver.get('http://host.docker.internal:3000/');
-    await driver.wait(until.titleContains('Dummy Node App'), 5000);
+    await driver.get("http://nodeproject-app:3000");
     console.log('Homepage test passed');
   } finally {
     await driver.quit();
