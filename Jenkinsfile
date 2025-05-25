@@ -2,39 +2,22 @@ pipeline {
   agent any
   tools { nodejs "NodeJS_14" }
   environment {
-    DOCKER_IMAGE = "youruser/selenium-tests:latest"
+    DOCKER_IMAGE = "sara-waheed/selenium-tests:latest"
   }
   stages {
-    stage('Lint') {
-      steps {
-        sh 'npm install'
-        sh 'npm run lint'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'npm run build'
-      }
-    }
-    stage('Unit Test') {
-      steps {
-        sh 'npm test'
-      }
-    }
-    stage('Deploy Container') {
+    stage('Lint')       { steps { sh 'npm install'; sh 'npm run lint' } }
+    stage('Build')      { steps { sh 'npm run build' } }
+    stage('Unit Test')  { steps { sh 'npm test' } }
+    stage('Deploy')     {
       steps {
         sh '''
-          docker build -t dummy-node-app:latest .
-          docker rm -f dummy-node-app || true
-          docker run -d --name dummy-node-app -p 3000:3000 dummy-node-app:latest
+          docker build -t nodeproject-app:latest .
+          docker rm -f nodeproject-app || true
+          docker run -d --name nodeproject-app -p 3000:3000 nodeproject-app:latest
         '''
       }
     }
-    stage('Selenium Tests') {
-      steps {
-        sh "docker run --network host ${DOCKER_IMAGE}"
-      }
-    }
+    stage('Selenium')   { steps { sh "docker run --network host ${DOCKER_IMAGE}" } }
   }
   post {
     always {
