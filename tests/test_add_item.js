@@ -20,7 +20,7 @@ const os = require('os');
     .build();
 
   try {
-    await driver.get('http://host.docker.internal:3000/');
+    await driver.get("http://nodeproject-app:3000");
     await driver.findElement(By.id('name')).sendKeys('TestItem');
     await driver.findElement(By.id('qty')).sendKeys('5');
     await driver.findElement(By.css('button[type=submit]')).click();
