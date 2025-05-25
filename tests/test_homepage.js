@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 const assert = require('assert');
 const { Builder, By, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
