@@ -7,7 +7,12 @@ pipeline {
   stages {
     stage('Lint')       { steps { sh 'npm install'; sh 'npm run lint' } }
     stage('Build')      { steps { sh 'npm run build' } }
-    stage('Unit Test')  { steps { sh 'npm test', sh 'npm install' } }
+    stage('Unit Test')  { 
+      steps {
+        sh 'npm install'  // Install dependencies first
+        sh 'npm test'     // Then run tests
+      } 
+    }
     stage('Deploy')     {
       steps {
         sh '''
