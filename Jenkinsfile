@@ -2,7 +2,7 @@ pipeline {
   agent any
   tools { nodejs "NodeJS_14" }
   environment {
-    DOCKER_IMAGE = "sara-waheed/selenium-tests:latest"
+    DOCKER_IMAGE = "sarawaheed/selenium-tests:latest"
   }
   stages {
     stage('Lint')       { steps { sh 'npm install'; sh 'npm run lint' } }
