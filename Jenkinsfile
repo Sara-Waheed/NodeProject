@@ -36,10 +36,20 @@ pipeline {
       }
     }
     stage('Selenium') {
-      steps {
-        sh 'docker run --network node-net --rm sarawaheed/selenium-tests:latest'
-      }
-    }
+  steps {
+    // Make sure APP_HOST and APP_PORT match how you ran your app container
+    sh '''
+      docker run --network node-net --rm \
+        -v $WORKSPACE/tests:/tests \
+        -w /tests \
+        -e APP_HOST=nodeproject-app \
+        -e APP_PORT=3000 \
+        sarawaheed/selenium-tests:latest \
+        node test_homepage.js
+    '''
+  }
+}
+
   }
   post {
     always {
